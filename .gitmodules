@@ -1,0 +1,3 @@
+[submodule "Custom"]
+	path = Custom
+	url = git@github.com:incanus/BitBarPlugins.git

@@ -1,16 +1,16 @@
-#!/usr/bin/env PYTHONIOENCODING=UTF-8 /usr/local/bin/python
-# <bitbar.title>Text on Menubar</bitbar.title>
-# <bitbar.version>1.0</bitbar.version>
-# <bitbar.author>clip</bitbar.author>
-# <bitbar.author.github>binderclip</bitbar.author.github>
-# <bitbar.desc>Show your text on menubar</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
-# <bitbar.image>https://qn.cdn.cliiip.com/imgs/u/d93e6b5b-52b7-4324-aaef-8969915f91b1.png</bitbar.image>
+#!/usr/bin/env python3
+
+# <xbar.title>Text on Menubar</xbar.title>
+# <xbar.version>1.1</xbar.version>
+# <xbar.author>clip</xbar.author>
+# <xbar.author.github>binderclip</xbar.author.github>
+# <xbar.desc>Show your text on menubar</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.image>https://qn.cdn.cliiip.com/imgs/u/d93e6b5b-52b7-4324-aaef-8969915f91b1.png</xbar.image>
 
 import argparse
 import os
 import subprocess
-
 
 def get_text_file():
     home = os.path.expanduser("~")
@@ -34,7 +34,7 @@ def read_and_print():
             text = f.read()
     except IOError:
         pass
-    print(text.strip() or 'Hello')
+    print((text.strip() or 'Hello'))
 
 
 def set_text():
@@ -46,7 +46,7 @@ def set_text():
                 r'set input_text to text returned of (display dialog "Please input text here:"'
                 ' default answer "" with title "Set the Text")',
             ])
-        text = ret.strip()
+        text = ret.strip().decode("utf-8")
 
         text_file = get_text_file()
         with open(text_file, 'w') as f:
@@ -54,13 +54,13 @@ def set_text():
     except subprocess.CalledProcessError:
         pass
     # refresh
-    s = "bitbar://refreshPlugin?name={}".format(get_file_name())
+    s = "xbar://app.xbarapp.com/refreshPlugin?path={}".format(get_file_name())
     subprocess.call(['open', s])
 
 
 def print_submenu():
     print('---')
-    print('Set the Text | bash="{}" param1="-s"  terminal=false'.format(get_file_path()))
+    print(('Set the Text | bash="{}" param1="-s" terminal=false'.format(get_file_path())))
 
 
 def main():

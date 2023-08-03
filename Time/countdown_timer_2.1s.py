@@ -1,13 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-# <bitbar.title>Countdown Timer 2</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Federico Ferri</bitbar.author>
-# <bitbar.author.github>fferri</bitbar.author.github>
-# <bitbar.desc>Simple countdown timer.</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
-# <bitbar.image>https://raw.githubusercontent.com/fferri/bitbar-countdown-timer/master/screenshot.gif</bitbar.image>
-# <bitbar.abouturl>https://github.com/fferri/bitbar-countdown-timer</bitbar.abouturl>
+#!/usr/bin/env python3
+
+# <xbar.title>Countdown Timer 2</xbar.title>
+# <xbar.version>v1.1</xbar.version>
+# <xbar.author>Federico Ferri</xbar.author>
+# <xbar.author.github>fferri</xbar.author.github>
+# <xbar.desc>Simple countdown timer.</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.image>https://raw.githubusercontent.com/fferri/bitbar-countdown-timer/master/screenshot.gif</xbar.image>
+# <xbar.abouturl>https://github.com/fferri/bitbar-countdown-timer</xbar.abouturl>
 
 import os
 import re
@@ -32,7 +32,7 @@ def prompt(text='', defaultAnswer='', icon='note', buttons=('Cancel','Ok'), defa
                 defaultButton: "{defaultButtonStr}"
             }})
             response.textReturned
-        '''.format(**d)]).rstrip()
+        '''.format(**d)]).rstrip().decode("utf-8")
     except subprocess.CalledProcessError:
         pass
 
@@ -40,14 +40,14 @@ def notify(text, title, sound='Glass'):
     os.system('osascript -e \'display notification "{}" with title "{}" sound name "{}"\''.format(text, title, sound))
 
 def entry(title='---', **kwargs):
-    args = ' '.join('{}=\'{}\''.format(k,v) for k,v in kwargs.items() if v is not None)
+    args = ' '.join('{}=\'{}\''.format(k,v) for k,v in list(kwargs.items()) if v is not None)
     if args: args = '|' + args
-    print(title + args)
+    print((title + args))
 
 def parse_time(s):
     m = re.match('^((\d+)h)?((\d+)m)?((\d+)s?)?$', s)
     if m is None: raise Exception('invalid time: %s' % s)
-    h, m, s = map(int, (m.group(i) or 0 for i in (2, 4, 6)))
+    h, m, s = list(map(int, (m.group(i) or 0 for i in (2, 4, 6))))
     return s + 60 * (m + 60 * h)
 
 def render_time(t):
@@ -71,7 +71,7 @@ def write_data_file(filename, t, task=None):
         f.write('{:f}{}{}'.format(t, '\n' if task else '', task or ''))
 
 def usage():
-    print('''usage: {0} <time> [task_name]
+    print(('''usage: {0} <time> [task_name]
 time can be:
     N or Ns: number of seconds
     Nm: number of minutes
@@ -79,7 +79,7 @@ time can be:
 
 example:
     {0} 5m30s 'Egg is ready!'
-'''.format(__file__))
+'''.format(__file__)))
     sys.exit(1)
 
 data_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), '.' + os.path.basename(__file__) + '.countdown')

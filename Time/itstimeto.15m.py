@@ -1,13 +1,12 @@
-#!/usr/bin/env python
-# coding: UTF-8
+#!/usr/bin/env python3
 
-# <bitbar.title>It's time to</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Kouji Anzai</bitbar.author>
-# <bitbar.author.github>kanzmrsw</bitbar.author.github>
-# <bitbar.desc>Shows emoji means that it's time to do something.</bitbar.desc>
-# <bitbar.image>http://i.imgur.com/qRgqIVq.png</bitbar.image>
-# <bitbar.dependencies>python</bitbar.dependencies>
+# <xbar.title>It's time to</xbar.title>
+# <xbar.version>v1.1</xbar.version>
+# <xbar.author>Kouji Anzai</xbar.author>
+# <xbar.author.github>kanzmrsw</xbar.author.github>
+# <xbar.desc>Shows emoji means that it's time to do something.</xbar.desc>
+# <xbar.image>http://i.imgur.com/qRgqIVq.png</xbar.image>
+# <xbar.dependencies>python</xbar.dependencies>
 
 import datetime
 
@@ -17,10 +16,10 @@ daytime = datetime.time(17,30,0)
 night = datetime.time(22,0,0)
 
 if d < morning:
-	print '🌅'
+	print('🌅')
 elif morning <= d < daytime:
-	print '👷'
+	print('👷')
 elif daytime <= d < night:
-	print '🍺'
+	print('🍺')
 else:
-	print '💤'
+	print('💤')

@@ -1,22 +1,15 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#
-# <bitbar.title>ProtonVPN Server Monitor</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Sai Sasidhar Maddali</bitbar.author>
-# <bitbar.author.github>saisasidhar</bitbar.author.github>
-# <bitbar.desc>Displays ProtonVPN server load for free and user defined servers</bitbar.desc>
-# <bitbar.image>https://raw.githubusercontent.com/saisasidhar/utils/master/bitbar-argos/ProtonVPN/preview-bitbar.png</bitbar.image>
-# <bitbar.dependencies>python</bitbar.dependencies>
-# <bitbar.abouturl>https://github.com/saisasidhar/utils/tree/master/bitbar-argos/ProtonVPN</bitbar.abouturl>
+#!/usr/bin/env python3
 
-try:
-    # for python3
-    from urllib.request import urlopen
-except ImportError:
-    # fallback to python2 urllib2
-    from urllib2 import urlopen
+# <xbar.title>ProtonVPN Server Monitor</xbar.title>
+# <xbar.version>v1.1</xbar.version>
+# <xbar.author>Sai Sasidhar Maddali</xbar.author>
+# <xbar.author.github>saisasidhar</xbar.author.github>
+# <xbar.desc>Displays ProtonVPN server load for free and user defined servers</xbar.desc>
+# <xbar.image>https://raw.githubusercontent.com/saisasidhar/utils/master/bitbar-argos/ProtonVPN/preview-bitbar.png</xbar.image>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.abouturl>https://github.com/saisasidhar/utils/tree/master/bitbar-argos/ProtonVPN</xbar.abouturl>
 
+from urllib.request import urlopen
 import json
 
 menu_titles = []

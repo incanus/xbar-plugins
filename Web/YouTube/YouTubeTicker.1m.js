@@ -1,12 +1,12 @@
 #!/usr/bin/env /usr/local/bin/node
 
-// <bitbar.title>YouTube Ticker</bitbar.title>
-// <bitbar.version>v1.1</bitbar.version>
-// <bitbar.author>Zachary David Saunders</bitbar.author>
-// <bitbar.author.github>ZacharyDavidSaunders</bitbar.author.github>
-// <bitbar.desc>A MacOs Menu Bar (BitBar) plugin that displays your YouTube subscriber count.</bitbar.desc>
-// <bitbar.dependencies>node.js</bitbar.dependencies>
-// <bitbar.image>https://i.imgur.com/0aNslKx.png</bitbar.image>
+// <xbar.title>YouTube Ticker</xbar.title>
+// <xbar.version>v1.1</xbar.version>
+// <xbar.author>Zachary David Saunders</xbar.author>
+// <xbar.author.github>ZacharyDavidSaunders</xbar.author.github>
+// <xbar.desc>A MacOs Menu Bar (BitBar) plugin that displays your YouTube subscriber count.</xbar.desc>
+// <xbar.dependencies>node.js</xbar.dependencies>
+// <xbar.image>https://i.imgur.com/0aNslKx.png</xbar.image>
 /*jshint esversion: 6 */
 
 
@@ -38,7 +38,7 @@ renderPlugin();
 
 function renderPlugin(){
   if(key == "<YOUR-KEY-HERE>"){
-    console.log("CLICK ME TO CONFIGURE YOUTUBE TICKER |color:red image="+youTubeIcon );
+    console.log("CLICK ME TO CONFIGURE YOUTUBE TICKER |color=red image="+youTubeIcon );
     console.log("---");
     console.log("Please watch the following setup video. [Click to visit site] |href="+setupVideoLink);
     console.log("---");

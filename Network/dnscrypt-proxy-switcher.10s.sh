@@ -2,16 +2,16 @@
 #
 # dnscrypt-proxy switcher
 #
-# <bitbar.author.github>jedisct1</bitbar.author.github>
-# <bitbar.author>Frank Denis</bitbar.author>
-# <bitbar.desc>Toggle dnscrypt-proxy usage</bitbar.desc>
-# <bitbar.image>https://raw.githubusercontent.com/jedisct1/bitbar-dnscrypt-proxy-switcher/master/bitbar-dnscrypt-proxy.jpg</bitbar.image>
-# <bitbar.title>dnscrypt-proxy switcher</bitbar.title>
-# <bitbar.url>https://github.com/jedisct1/bitbar-dnscrypt-proxy-switcher</bitbar.url>
-# <bitbar.version>v0.1</bitbar.version>
+# <xbar.author.github>jedisct1</xbar.author.github>
+# <xbar.author>Frank Denis</xbar.author>
+# <xbar.desc>Toggle dnscrypt-proxy usage</xbar.desc>
+# <xbar.image>https://raw.githubusercontent.com/jedisct1/bitbar-dnscrypt-proxy-switcher/master/bitbar-dnscrypt-proxy.jpg</xbar.image>
+# <xbar.title>dnscrypt-proxy switcher</xbar.title>
+# <xbar.url>https://github.com/jedisct1/bitbar-dnscrypt-proxy-switcher</xbar.url>
+# <xbar.version>v0.1</xbar.version>
 
 # Theme: classic or emoji
-THEME="emoji"
+THEME="classic"
 
 # Non-authenticated resolver IP addresses
 ADDITIONAL_IPS="9.9.9.9"
@@ -46,8 +46,11 @@ classic)
 esac
 
 osversion=$(sw_vers -productVersion)
-osmajor=$(echo "$osversion" | awk -F. '{print $2}')
-[ "$osmajor" -lt 7 ] && exit 1
+osmajor=$(echo "$osversion" | awk -F. '{print $1}')
+osminor=$(echo "$osversion" | awk -F. '{print $2}')
+ospatch=$(echo "$osversion" | awk -F. '{print $3}')
+[ "$osmajor" -lt 10 ] && exit 1
+[ "$osmajor" == 10 ] && [ "$osminor" -lt 7 ] && exit 1
 
 get_current_service() {
 	services=$(networksetup -listnetworkserviceorder | grep -F 'Hardware Port')
@@ -111,34 +114,37 @@ get_current_resolvers() {
 }
 
 flush_dns_cache() {
-	if [ "$osmajor" -le 8 ]; then
-		killall -HUP mDNSResponder 2>/dev/null
-	elif [ "$osmajor" = 9 ]; then
+	if ["$osmajor" -ge 11 ]; then
 		dscacheutil -flushcache 2>/dev/null
-		killall -HUP mDNSResponder 2>/dev/null
-	elif [ "$osmajor" = 10 ]; then
-		osminor=$(echo "$osversion" | awk -F. '{print $3}')
-		if [ "$osminor" -le 3 ]; then
-			discoveryutil mdnsflushcache 2>/dev/null
-			discoveryutil udnsflushcaches 2>/dev/null
-		else
-			dscacheutil -flushcache 2>/dev/null
-			killall -HUP mDNSResponder 2>/dev/null
-		fi
-	elif [ "$osmajor" = 11 ]; then
-		dscacheutil -flushcache 2>/dev/null
-		killall -HUP mDNSResponder 2>/dev/null
-	elif [ "$osmajor" = 12 ]; then
-		osminor=$(echo "$osversion" | awk -F. '{print $3}')
-		if [ "$osminor" -le 2 ]; then
-			killall -HUP mDNSResponder 2>/dev/null
-		else
-			killall -HUP mDNSResponder 2>/dev/null
-			killall mDNSResponderHelper 2>/dev/null
-			dscacheutil -flushcache 2>/dev/null
-		fi
 	else
-		killall -HUP mDNSResponder 2>/dev/null
+		if [ "$osminor" -le 8 ]; then
+			killall -HUP mDNSResponder 2>/dev/null
+		elif [ "$osminor" = 9 ]; then
+			dscacheutil -flushcache 2>/dev/null
+			killall -HUP mDNSResponder 2>/dev/null
+		elif [ "$osminor" = 10 ]; then
+			if [ "$ospatch" -le 3 ]; then
+				discoveryutil mdnsflushcache 2>/dev/null
+				discoveryutil udnsflushcaches 2>/dev/null
+			else
+				dscacheutil -flushcache 2>/dev/null
+				killall -HUP mDNSResponder 2>/dev/null
+			fi
+		elif [ "$osminor" = 11 ]; then
+			dscacheutil -flushcache 2>/dev/null
+			killall -HUP mDNSResponder 2>/dev/null
+		elif [ "$osminor" = 12 ]; then
+			if [ "$ospatch" -le 2 ]; then
+				killall -HUP mDNSResponder 2>/dev/null
+			else
+				killall -HUP mDNSResponder 2>/dev/null
+				killall mDNSResponderHelper 2>/dev/null
+				dscacheutil -flushcache 2>/dev/null
+			fi
+		else
+			killall -HUP mDNSResponder 2>/dev/null
+			dscacheutil -flushcache 2>/dev/null
+		fi
 	fi
 }
 
@@ -161,8 +167,7 @@ fi
 
 if [ "$#" -gt 0 ]; then
 	wanted_resolvers="$*"
-	# shellcheck disable=2086
-	networksetup -setdnsservers "$service" $wanted_resolvers
+	osascript -e "do shell script \"networksetup -setdnsservers \\\"$service\\\" $wanted_resolvers\" with administrator privileges"
 	flush_dns_cache 2>/dev/null
 	exit 0
 fi
@@ -182,6 +187,11 @@ else
 	echo "$OTHER_ICON"
 fi
 echo "---"
+
+if [ "$service" = "Wi-Fi" ]; then
+	ssid=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
+	echo "Wi-Fi SSID: ${ssid}"
+fi
 
 echo "${service} resolvers: ${service_resolvers_name}"
 if [ "$service_resolvers_name" != "$current_resolvers_name" ]; then

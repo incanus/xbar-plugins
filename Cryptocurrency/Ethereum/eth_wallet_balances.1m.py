@@ -1,4 +1,5 @@
-#!/usr/local/homebrew/bin/python3
+#!/usr/bin/env python3
+
 """Loads Ethereum wallet address (configured below) and all tokens associated with
    each address. Then displays current $USD value in the bitbar title, with a drop-down
    showing each total value for owned ETH and each token.
@@ -19,14 +20,14 @@ WALLET_ADDRESSES = [
 # Tickers to display at the bottom:
 TICKERS = ['BTC', 'ETH', 'LTC']
 
-# <bitbar.title>Etherum Wallet (and token) Balances</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Charlie Schluting</bitbar.author>
-# <bitbar.author.github>manos</bitbar.author.github>
-# <bitbar.desc>Displays a $USD total across all configured wallets, with drop-down showing the value of your ETH and all tokens held.</bitbar.desc>
-# <bitbar.image>https://schluting.com/temp/bitbar-eth-bal.png</bitbar.image>
-# <bitbar.dependencies>python3</bitbar.dependencies>
-# <bitbar.abouturl>https://github.com/manos/bitbar_ethereum_wallet_balances</bitbar.abouturl>
+# <xbar.title>Etherum Wallet (and token) Balances</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>Charlie Schluting</xbar.author>
+# <xbar.author.github>manos</xbar.author.github>
+# <xbar.desc>Displays a $USD total across all configured wallets, with drop-down showing the value of your ETH and all tokens held.</xbar.desc>
+# <xbar.image>https://schluting.com/temp/bitbar-eth-bal.png</xbar.image>
+# <xbar.dependencies>python3</xbar.dependencies>
+# <xbar.abouturl>https://github.com/manos/bitbar_ethereum_wallet_balances</xbar.abouturl>
 
 ETHEXPLORER_API_KEY = 'freekey'
 EE_URL = 'http://api.ethplorer.io/'

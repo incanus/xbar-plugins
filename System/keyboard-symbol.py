@@ -1,23 +1,22 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
-# <bitbar.title>Keyboard symbol</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Đinh Quang Hiếu</bitbar.author>
-# <bitbar.author.github>dqhieu</bitbar.author.github>
-# <bitbar.desc>This plugin displays a menu of keyboard symbol</bitbar.desc>
-# <bitbar.image>https://raw.githubusercontent.com/dqhieu/keyboard-symbol/master/demo.png</bitbar.image>
-# <bitbar.dependencies></bitbar.dependencies>
+# <xbar.title>Keyboard symbol</xbar.title>
+# <xbar.version>v1.1</xbar.version>
+# <xbar.author>Đinh Quang Hiếu</xbar.author>
+# <xbar.author.github>dqhieu</xbar.author.github>
+# <xbar.desc>This plugin displays a menu of keyboard symbol</xbar.desc>
+# <xbar.image>https://raw.githubusercontent.com/dqhieu/keyboard-symbol/master/demo.png</xbar.image>
+# <xbar.dependencies></xbar.dependencies>
 
-print '⌨️'
-print '---'
-print '⌘ Command'
-print '⇧ Shift'
-print '⌫ Backspace/Delete'
-print '⇥ Tab'
-print '⇪ Caps lock'
-print '⌥ Option/Alt'
-print '⌃ Control'
-print '⎋ Escape'
-print '←↑→↓ Arrow keys'
-print '↩ Return'
+print('⌨️')
+print('---')
+print('⌘ Command')
+print('⇧ Shift')
+print('⌫ Backspace/Delete')
+print('⇥ Tab')
+print('⇪ Caps lock')
+print('⌥ Option/Alt')
+print('⌃ Control')
+print('⎋ Escape')
+print('←↑→↓ Arrow keys')
+print('↩ Return')

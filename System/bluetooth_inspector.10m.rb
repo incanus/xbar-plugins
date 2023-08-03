@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
-# <bitbar.title>Bluetooth Inspector</bitbar.title>
-# <bitbar.version>0.1.4</bitbar.version>
-# <bitbar.author>Ryan Scott Lewis</bitbar.author>
-# <bitbar.author.github>RyanScottLewis</bitbar.author.github>
-# <bitbar.desc>Show bluetooth information for all connected bluetooth devices using the `system_profiler` binary.</bitbar.desc>
-# <bitbar.image>https://raw.githubusercontent.com/RyanScottLewis/bitbar-bluetooth_inspector/master/bitbar-bluetooth_inspector.png</bitbar.image>
-# <bitbar.dependencies>ruby</bitbar.dependencies>
-# <bitbar.abouturl>https://github.com/RyanScottLewis/bitbar-bluetooth_inspector</bitbar.abouturl>
+# <xbar.title>Bluetooth Inspector</xbar.title>
+# <xbar.version>0.1.4</xbar.version>
+# <xbar.author>Ryan Scott Lewis</xbar.author>
+# <xbar.author.github>RyanScottLewis</xbar.author.github>
+# <xbar.desc>Show bluetooth information for all connected bluetooth devices using the `system_profiler` binary.</xbar.desc>
+# <xbar.image>https://raw.githubusercontent.com/RyanScottLewis/bitbar-bluetooth_inspector/master/bitbar-bluetooth_inspector.png</xbar.image>
+# <xbar.dependencies>ruby</xbar.dependencies>
+# <xbar.abouturl>https://github.com/RyanScottLewis/bitbar-bluetooth_inspector</xbar.abouturl>
 
 # NOTE: Configuration is at the BOTTOM of this file!
 
@@ -550,14 +550,14 @@ module BluetoothInspector
     def parse(data)
       data = YAML.load(data.to_s)
 
-      data["Bluetooth"]["Devices (Paired, Configured, etc.)"].collect do |name, attributes|
+      data["Bluetooth"]["Connected"].collect do |name, attributes|
         Device.new(
           name:       name,
           battery:    attributes["Battery Level"],
           major_type: attributes["Major Type"],
           minor_type: attributes["Minor Type"],
           paired:     attributes["Paired"],
-          connected:  attributes["Connected"],
+          connected:  true,
         )
       end
     end

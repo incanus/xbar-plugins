@@ -1,14 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# <bitbar.title>Anaconda Environments</bitbar.title>
-# <bitbar.version>v1.2</bitbar.version>
-# <bitbar.author>Darius Morawiec</bitbar.author>
-# <bitbar.author.github>nok</bitbar.author.github>
-# <bitbar.desc>Useful BitBar plugin to list all created conda environments and to open a new session with a chosen environment.</bitbar.desc>
-# <bitbar.image>https://github.com/nok/conda-envs/blob/master/themes/dark.png?raw=true</bitbar.image>
-# <bitbar.dependencies>conda</bitbar.dependencies>
-# <bitbar.abouturl>https://github.com/nok/conda-envs</bitbar.abouturl>
+# <xbar.title>Anaconda Environments</xbar.title>
+# <xbar.version>v1.2</xbar.version>
+# <xbar.author>Darius Morawiec</xbar.author>
+# <xbar.author.github>nok</xbar.author.github>
+# <xbar.desc>Useful BitBar plugin to list all created conda environments and to open a new session with a chosen environment.</xbar.desc>
+# <xbar.image>https://github.com/nok/conda-envs/blob/master/themes/dark.png?raw=true</xbar.image>
+# <xbar.dependencies>conda</xbar.dependencies>
+# <xbar.abouturl>https://github.com/nok/conda-envs</xbar.abouturl>
 
 
 import os
@@ -106,7 +106,7 @@ def get_conda_envs():
     out = subp.check_output(cmd, stderr=subp.STDOUT).strip()
     envs = []
     for env in out.splitlines():
-        if not env.strip().startswith('#'):
+        if not env.strip().startswith(b'#'):
             tuple = env.split()
             name = tuple[0]
             path = tuple[1]

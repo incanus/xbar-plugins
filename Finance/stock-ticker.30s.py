@@ -1,13 +1,15 @@
-#!/usr/bin/python
-# <bitbar.title>Stock Ticker</bitbar.title>
-# <bitbar.version>1.0</bitbar.version>
-# <bitbar.author>Robert Kanter</bitbar.author>
-# <bitbar.author.github>rkanter</bitbar.author.github>
-# <bitbar.desc>Provides a rotating stock ticker in your menu bar, with color and percentage changes</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
-# <bitbar.image>https://i.imgur.com/Nf4jiRd.png</bitbar.image>
-# <bitbar.abouturl>https://github.com/rkanter</bitbar.abouturl>
-import urllib2
+#!/usr/bin/env python3
+
+# <xbar.title>Stock Ticker</xbar.title>
+# <xbar.version>1.0</xbar.version>
+# <xbar.author>Robert Kanter</xbar.author>
+# <xbar.author.github>rkanter</xbar.author.github>
+# <xbar.desc>Provides a rotating stock ticker in your menu bar, with color and percentage changes</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.image>https://i.imgur.com/Nf4jiRd.png</xbar.image>
+# <xbar.abouturl>https://github.com/rkanter</xbar.abouturl>
+
+import urllib.request, urllib.error, urllib.parse
 import json
 
 #-----------------------------------------------------------------------------
@@ -23,7 +25,7 @@ api_token = ""
 stock_symbols = ["MSFT", "AAPL", "AMZN"]
 #-----------------------------------------------------------------------------
 
-response = urllib2.urlopen("https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + ','.join(stock_symbols) + "&types=quote&filter=symbol,latestPrice,change,changePercent&displayPercent=true&token=" + api_token)
+response = urllib.request.urlopen("https://cloud.iexapis.com/stable/stock/market/batch?symbols=" + ','.join(stock_symbols) + "&types=quote&filter=symbol,latestPrice,change,changePercent&displayPercent=true&token=" + api_token)
 json_data = json.loads(response.read())
 
 for stock_symbol in stock_symbols:
@@ -34,7 +36,7 @@ for stock_symbol in stock_symbols:
 
     if price_changed is not None:
         color = "red" if float(price_changed) < 0 else "green"
-        print("{} {:.2f} {:.2f} ({:.2f}%) | color={}".format(stock_symbol, price_current, price_changed, price_percent_changed, color))
+        print(("{} {:.2f} {:.2f} ({:.2f}%) | color={}".format(stock_symbol, price_current, price_changed, price_percent_changed, color)))
     else:
         color = "black"
-        print("{} {:.2f} | color={}".format(stock_symbol, price_current, color))
+        print(("{} {:.2f} | color={}".format(stock_symbol, price_current, color)))
